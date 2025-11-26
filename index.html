@@ -514,41 +514,6 @@
         }
 
 
-        // Advanced bot detection
-        async function performBotDetection() {
-            let botScore = 0;
-           
-            // Basic checks
-            if (isLikelyBot()) botScore += 3;
-           
-            // Check for mouse movement (real users move mouse)
-            let mouseMoved = false;
-            const mouseHandler = () => { mouseMoved = true; };
-            document.addEventListener('mousemove', mouseHandler, { once: true });
-           
-            // Wait a bit to see if mouse moves
-            await new Promise(resolve => setTimeout(resolve, 100));
-           
-            if (!mouseMoved) botScore += 1;
-            document.removeEventListener('mousemove', mouseHandler);
-           
-            // Check screen properties
-            if (screen.width === 0 || screen.height === 0) botScore += 2;
-           
-            // Check for common screen sizes (bots often use default)
-            if (screen.width === 1024 && screen.height === 768) botScore += 1;
-           
-            // Check for plugins (most bots have none)
-            if (navigator.plugins.length === 0) botScore += 1;
-           
-            // Check for touch support inconsistency
-            const hasTouch = 'ontouchstart' in window;
-            const isMobile = /mobile|android|iphone|ipad/i.test(navigator.userAgent);
-            if (hasTouch !== isMobile) botScore += 1;
-           
-            return botScore >= 3; // Threshold for bot detection
-        }
-
 
         // Fetch and parse Google Sheets data
         async function fetchRedirectData() {
