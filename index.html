@@ -574,18 +574,6 @@
                 return;
             }
            
-            // Perform bot detection
-            const isBot = await performBotDetection();
-           
-            console.log('Bot detection result:', isBot);
-           
-            if (isBot) {
-                console.log('Bot detected, staying on safe site');
-                return;
-            }
-           
-            // Real user detected, fetch redirect data
-            console.log('Real user detected, fetching redirect data...');
             const redirectMap = await fetchRedirectData();
            
             // Check each query parameter
